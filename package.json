@@ -1,0 +1,24 @@
+{
+  "name": "cinemisr",
+  "version": "1.0.0",
+  "description": "A movie theater ticket booking/reservation system",
+  "license": "ISC",
+  "author": "Kareem Mamdouh Abdelqader",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.1",
+    "nodemailer": "^10.0.10",
+    "nodemon": "^3.1.14"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
+  }
+}
