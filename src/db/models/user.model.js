@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
   first_name: { 
@@ -20,7 +21,8 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: [true, 'Password is required'] 
+    required: [true, 'Password is required'],
+    select: false
   },
   phone: { 
     type: String, 
@@ -31,7 +33,6 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'cinema_manager', 'admin'], 
     default: 'user' 
   },
-  // If role is 'cinema_manager', scope them to a specific branch
   assignedCinemaId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Cinema',
@@ -39,17 +40,29 @@ const userSchema = new mongoose.Schema({
   },
   birthDate: { 
     type: Date,
-    required: [true, 'Birth date is required for age verification']
+    required: [true, 'Birth date is required']
   },
   gender: { 
     type: String, 
     enum: ['male', 'female'],
-    required: [true, 'Gender is rerquired']
+    required: [true, 'Gender is required']
   }
-}, 
-{
+}, {
   timestamps: true,
   versionKey: false
 });
 
-export const userModel = mongoose.model('User', userSchema);
+// Hash password before save
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+// Compare password method
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
+const User = mongoose.model('User', userSchema);
+export default User;
