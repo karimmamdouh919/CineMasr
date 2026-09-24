@@ -24,5 +24,4 @@ const showtimeSchema = new mongoose.Schema({
   }]
 }, { timestamps: true });
 showtimeSchema.index({ cinemaId: 1, movieId: 1, startTime: 1 });
-
 export const showtimeModel = mongoose.model('Showtime', showtimeSchema);
