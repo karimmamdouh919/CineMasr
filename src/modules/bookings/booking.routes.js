@@ -9,7 +9,7 @@ import {
   getAllBookings
 } from './booking.controller.js';
 
- const router = express.Router();
+const router = express.Router();
 
 // User booking routes
 router.post('/hold-seats', holdSeats);
