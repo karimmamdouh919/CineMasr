@@ -99,6 +99,14 @@ body {
 </div>
 
 <script>
+const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+if (!user) {
+  window.location.href = 'login.html';
+} else {
+  document.querySelector('.user-name').textContent = user.name;
+}
+
 const tabs = document.querySelectorAll('.tab');
 const contents = document.querySelectorAll('.tab-content');
 tabs.forEach(tab => {
@@ -111,5 +119,6 @@ tabs.forEach(tab => {
     });
 });
 </script>
+
 </body>
 </html>
