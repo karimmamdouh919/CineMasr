@@ -1,0 +1,208 @@
+/* =========================================================
+   CineMisr - Seat Selection
+   ========================================================= */
+
+.seats-page {
+  min-height: 100vh;
+  padding: clamp(20px, 5vw, 48px) clamp(16px, 5vw, 32px);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.seats-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.page-subtitle {
+  color: #A1A1AA;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ===== Screen indicator ===== */
+
+.screen-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.screen-line {
+  width: min(80%, 500px);
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #8B5CF6,
+    transparent
+  );
+  border-radius: 50%;
+  margin-bottom: 6px;
+  opacity: 0.7;
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
+}
+
+.screen-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #A1A1AA;
+}
+
+/* ===== Seats grid ===== */
+
+.seats-wrapper {
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.seats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  min-width: max-content;
+  margin: 0 auto;
+}
+
+.seat-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.row-label {
+  width: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #A1A1AA;
+}
+
+.seat {
+  width: clamp(26px, 4vw, 34px);
+  height: clamp(26px, 4vw, 34px);
+  border-radius: 8px 8px 4px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #211D35;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  font-size: 10px;
+  color: #A1A1AA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Available */
+
+.seat:hover:not(.seat-booked) {
+  border-color: #8B5CF6;
+  transform: translateY(-2px);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+/* Selected */
+
+.seat-selected {
+  background-color: #8B5CF6;
+  border-color: #8B5CF6;
+  color: #F8FAFC;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25);
+}
+
+/* Booked / unavailable */
+
+.seat-booked {
+  background: #2A2833;
+  border-color: #3F3D47;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+}
+
+/* ===== Legend ===== */
+
+.seats-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: #A1A1AA;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seat-sample {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.seat-sample.seat-available {
+  background: #211D35;
+}
+
+.seat-sample.seat-selected {
+  background-color: #8B5CF6;
+  border-color: #8B5CF6;
+}
+
+.seat-sample.seat-booked {
+  background-color: #2A2833;
+  border-color: #3F3D47;
+}
+
+/* ===== Summary card ===== */
+
+.glass-card {
+  background: #211D35;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 16px;
+  padding: clamp(20px, 4vw, 28px);
+  max-width: 420px;
+  margin: 0 auto;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #A1A1AA;
+  margin-bottom: 10px;
+}
+
+.summary-total {
+  color: #F8FAFC;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 480px) {
+  .seats-legend {
+    gap: 16px;
+    font-size: 12px;
+  }
+}
