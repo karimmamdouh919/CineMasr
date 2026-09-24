@@ -1,0 +1,59 @@
+/* =========================================================
+   CineMisr - Account Navbar
+   ========================================================= */
+
+.account-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(14px, 3vw, 18px) clamp(16px, 5vw, 32px);
+  background: rgba(11, 11, 20, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.16);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-logo {
+  color: #F8FAFC;
+  font-weight: 800;
+  font-size: 18px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(12px, 3vw, 24px);
+}
+
+.nav-link {
+  color: #A1A1AA;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-link:hover {
+  color: #F8FAFC;
+}
+
+.nav-link.active {
+  color: #F8FAFC;
+  border-bottom-color: #8B5CF6;
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+}

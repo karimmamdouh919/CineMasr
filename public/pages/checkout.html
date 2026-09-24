@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - CineMisr</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/seats.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+  <link rel="stylesheet" href="../css/redesign.css">
+</head>
+<body>
+
+  
+
+  <a href="index.html" class="home-link">← Home</a>
+
+  <div class="snacks-page">
+
+    <div class="seats-header">
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-subtitle">Review your order before payment</p>
+    </div>
+
+    <div class="glass-card order-summary">
+
+      <div class="summary-block">
+        <h3 class="block-title">Booking Details</h3>
+        <div class="summary-row"><span>Movie</span><span id="sumMovie">—</span></div>
+        <div class="summary-row"><span>Cinema</span><span id="sumCinema">—</span></div>
+        <div class="summary-row"><span>Seats</span><span id="sumSeats">—</span></div>
+        <div class="summary-row"><span>Tickets subtotal</span><span id="sumSeatsSubtotal">EGP 0</span></div>
+      </div>
+
+      <div class="summary-block">
+        <h3 class="block-title">Snacks</h3>
+        <div id="sumSnacksList" class="snacks-list">
+          <p class="empty-note">No snacks added</p>
+        </div>
+        <div class="summary-row"><span>Snacks subtotal</span><span id="sumSnacksSubtotal">EGP 0</span></div>
+      </div>
+
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span id="sumTotal">EGP 0</span>
+      </div>
+    </div>
+
+    <div class="glass-card payment-card">
+      <h3 class="block-title">Payment (Demo)</h3>
+      <p class="demo-note">This is a demo payment form — no real charge will be made.</p>
+
+      <form id="paymentForm" novalidate>
+        <div class="form-group">
+          <label for="cardName">Name on Card</label>
+          <input type="text" id="cardName" placeholder="Write your name" required>
+          <span class="error-message" id="cardNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+          <span class="error-message" id="cardNumberError"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cardExpiry">Expiry</label>
+            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+            <span class="error-message" id="cardExpiryError"></span>
+          </div>
+          <div class="form-group">
+            <label for="cardCvv">CVV</label>
+            <input type="text" id="cardCvv" placeholder="123" maxlength="4" required>
+            <span class="error-message" id="cardCvvError"></span>
+          </div>
+        </div>
+
+        <div id="paymentFormError" class="form-error"></div>
+
+        <button type="submit" id="payBtn" class="btn-primary">
+          <span class="btn-text">Confirm Payment</span>
+          <span class="btn-loader" hidden></span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="../js/checkout.js"></script>
+</body>
+</html>

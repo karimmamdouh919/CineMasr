@@ -1,0 +1,67 @@
+/* =========================================================
+   CineMisr - Checkout
+   ========================================================= */
+
+.order-summary {
+  max-width: 480px;
+  margin: 0 auto 20px;
+  text-align: left;
+}
+
+.payment-card {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.block-title {
+  font-size: 14px;
+  color: #A1A1AA;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 12px;
+}
+
+.summary-block {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.16);
+}
+
+.snacks-list {
+  margin-bottom: 10px;
+}
+
+.snack-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #A1A1AA;
+  margin-bottom: 6px;
+}
+
+.empty-note {
+  font-size: 13px;
+  color: #A1A1AA;
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.demo-note {
+  font-size: 12px;
+  color: #A1A1AA;
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}

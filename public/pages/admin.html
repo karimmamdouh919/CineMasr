@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - CineMisr</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/seats.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+  <link rel="stylesheet" href="../css/account-nav.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/redesign.css">
+</head>
+<body>
+
+  <nav class="account-nav">
+    <a href="index.html" class="nav-logo">CineMisr</a>
+    <div class="nav-links">
+      <a href="admin.html" class="nav-link active" data-section="overview">Overview</a>
+      <a href="admin.html" class="nav-link" data-section="movies">Movies</a>
+      <a href="admin.html" class="nav-link" data-section="bookings">Bookings</a>
+      <a href="admin.html" class="nav-link" data-section="users">Users</a>
+      <a href="login.html" class="nav-link" id="logoutLink">Logout</a>
+    </div>
+  </nav>
+
+  <div class="snacks-page admin-page">
+
+    <div class="seats-header">
+      <h1 class="page-title">Admin Dashboard</h1>
+      <p class="page-subtitle">Manage movies, bookings and users</p>
+    </div>
+
+    <div id="statsGrid" class="stats-grid"></div>
+
+    <div id="sectionContent"></div>
+
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

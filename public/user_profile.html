@@ -85,9 +85,7 @@ body {
         <div class="tab" data-target="reviews">Reviews</div>
     </div>
     
-    <div id="bookings" class="tab-content active">
-        <div class="empty-state">No bookings found.</div>
-    </div>
+    <div id="bookingsList"></div>
     
     <div id="favorites" class="tab-content">
         <div class="empty-state">No favorites added yet.</div>
@@ -102,9 +100,24 @@ body {
 const user = JSON.parse(localStorage.getItem('user') || 'null');
 
 if (!user) {
-  window.location.href = 'login.html';
+  window.location.href = '../login.html';
 } else {
   document.querySelector('.user-name').textContent = user.name;
+  // Load bookings from localStorage
+const lastBooking = JSON.parse(localStorage.getItem('cinemisr_last_booking') || 'null');
+const bookingsList = document.getElementById('bookingsList');
+if (lastBooking) {
+  bookingsList.innerHTML = `
+    <div style="background:#1a1a1a;border-radius:8px;padding:16px;margin-bottom:12px;">
+      <p style="color:#d4af37;font-weight:600;margin:0 0 8px">${lastBooking.movieName || 'Movie'}</p>
+      <p style="color:#888;font-size:14px;margin:4px 0">📍 ${lastBooking.cinemaName || '—'}</p>
+      <p style="color:#888;font-size:14px;margin:4px 0">💺 Seats: ${(lastBooking.seats || []).join(', ')}</p>
+      <p style="color:#888;font-size:14px;margin:4px 0">📅 ${lastBooking.bookedAt ? new Date(lastBooking.bookedAt).toLocaleDateString() : '—'}</p>
+      <p style="color:#fff;font-size:14px;margin:8px 0 0">Total: EGP ${(lastBooking.seatsSubtotal || 0) + (lastBooking.snacksSubtotal || 0)}</p>
+    </div>`;
+} else {
+  bookingsList.innerHTML = '<div class="empty-state"></div>';
+}
 }
 
 const tabs = document.querySelectorAll('.tab');

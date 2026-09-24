@@ -1,0 +1,163 @@
+/* =========================================================
+   CineMisr - Snacks
+   ========================================================= */
+
+.snacks-page {
+  min-height: 100vh;
+  padding: clamp(20px, 5vw, 48px) clamp(16px, 5vw, 32px);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.snacks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.snack-card {
+  background: #211D35;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.snack-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(236, 72, 153, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.snack-image {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.snack-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: rgba(139, 92, 246, 0.07);
+  border-radius: 8px;
+}
+
+.snack-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.snack-price {
+  font-size: 13px;
+  color: #F59E0B;
+  margin: 0 0 14px;
+  font-weight: 700;
+}
+
+/* ===== Option select ===== */
+
+.snack-option-select {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  background-color: #151326;
+  color: #F8FAFC;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.snack-option-select:focus {
+  border-color: #8B5CF6;
+}
+
+.snack-option-select option {
+  background-color: #151326;
+  color: #F8FAFC;
+}
+
+/* ===== Quantity control ===== */
+
+.snack-qty-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  background: rgba(139, 92, 246, 0.07);
+  color: #F8FAFC;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.qty-btn:hover:not(:disabled) {
+  border-color: #8B5CF6;
+  background: rgba(139, 92, 246, 0.16);
+}
+
+.qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  min-width: 20px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ===== Secondary / Skip button ===== */
+
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: transparent;
+  color: #A1A1AA;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover {
+  color: #F8FAFC;
+  border-color: rgba(236, 72, 153, 0.5);
+  background: rgba(236, 72, 153, 0.06);
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 480px) {
+  .snacks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+}
