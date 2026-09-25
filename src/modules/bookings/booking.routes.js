@@ -7,7 +7,9 @@ import {
   cancelBooking,
   handleWebhook,
   getAllBookings,
-  renderConfirmationPage
+  renderConfirmationPage,
+  deleteBooking,
+  updateBooking
 } from './booking.controller.js';
 import{protect} from '../../middlewares/Auth.Middleware.js'
 
@@ -25,5 +27,9 @@ router.post('/webhook', handleWebhook);
 
 // Admin routes
 router.get('/', getAllBookings);
+router.delete('/:id', deleteBooking);
+router.put('/:id', updateBooking);
+
+
 
 export default router;

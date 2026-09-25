@@ -8,7 +8,9 @@ import {
   deleteCinema,
   createHall,
   updateHall,
-  deleteHall
+  deleteHall,
+  getAllHalls,
+  getHallById
 } from './cinema.controller.js';
 
  const router = express.Router();
@@ -27,5 +29,7 @@ router.delete('/:id', deleteCinema);
 router.post('/:cinemaId/halls', createHall);
 router.put('/halls/:hallId', updateHall);
 router.delete('/halls/:hallId', deleteHall);
+router.get('/halls/:hallId', getHallById);
+router.get('/halls/', getAllHalls);
 
 export default router;

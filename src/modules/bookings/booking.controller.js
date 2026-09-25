@@ -181,7 +181,6 @@ export const handleWebhook = async (req, res) => {
       booking.paymentStatus = 'failed';
       booking.bookingStatus = 'cancelled';
       await booking.save();
-console.log(4);
       // Release temporary seat holds immediately
       await showtimeModel.findByIdAndUpdate(booking.showtimeId, {
         $pull: { tempSeatHolds: { seatNumber: { $in: seatNumbers } } }
@@ -194,10 +193,40 @@ console.log(4);
   }
 };
 
-export const getAllBookings = (req, res) => {
-  res.send('Admin: Get all system bookings');
+export const getAllBookings = async (req, res) => {
+  try {
+    const bookings = await bookingModel
+      .find(req.query)
+      .populate('userId showtimeId cinemaId');
+    res.status(200).json({ success: true, count: bookings.length, data: bookings });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 export const renderConfirmationPage = (req, res) => {
   res.sendFile(path.resolve('public', 'checkout-confirmation.html'));
+};
+
+export const deleteBooking = async (req, res) => {
+  try {
+    const booking = await bookingModel.findByIdAndDelete(req.params.id);
+    if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
+    res.status(200).json({ success: true, message: 'Booking deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const updateBooking = async (req, res) => {
+  try {
+    const booking = await bookingModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
+    res.status(200).json({ success: true, data: booking });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
 };

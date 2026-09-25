@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - CineMisr</title>
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/seats.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+  <link rel="stylesheet" href="../css/account-nav.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <nav class="account-nav">
+    <a href="index.html" class="nav-logo">CineMisr</a>
+    <div class="nav-links">
+      <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
+      <a href="#" class="nav-link" data-section="movies">Movies</a>
+      <a href="#" class="nav-link" data-section="cinemas">Cinemas</a>
+      <a href="#" class="nav-link" data-section="halls">Halls</a>
+      <a href="#" class="nav-link" data-section="snacks">Snacks</a>
+      <a href="#" class="nav-link" data-section="showtimes">Showtimes</a>
+      <a href="#" class="nav-link" data-section="users">Users</a>
+      <a href="#" class="nav-link" data-section="bookings">Bookings</a>
+    </div>
+  </nav>
+
+  <div class="snacks-page admin-page" id="adminPage">
+
+    <div class="seats-header">
+      <h1 class="page-title" id="pageTitle">Admin Dashboard</h1>
+      <p class="page-subtitle" id="pageSubtitle">Manage movies, bookings and users</p>
+    </div>
+
+    <div id="statsGrid" class="stats-grid"></div>
+
+    <div id="sectionContent"></div>
+
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Title</h3>
+        <button type="button" id="modalClose" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>
