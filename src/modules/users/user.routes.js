@@ -1,4 +1,4 @@
-  import express from 'express';
+import express from 'express';
 import { protect, restrictTo } from '../../middlewares/Auth.Middleware.js';
 import {
   getProfile,

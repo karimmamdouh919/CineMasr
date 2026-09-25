@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
   discountAmount: { type: Number, default: 0 },      // Applied promo/coupon code
   totalAmount: { type: Number, required: true },     // Grand total charged to customer
 
-  currency: { type: String, default: 'USD' },
+  currency: { type: String, default: 'EGP'},
 
   // PAYMENT & GATEWAY METADATA
   paymentStatus: {
