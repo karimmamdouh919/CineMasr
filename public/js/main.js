@@ -1,8 +1,11 @@
 function renderMovieCards(container, list, compact=false){
   if(!container) return;
+  const movieDetailsPath = location.pathname.includes("/pages/")
+    ? "movie-details.html"
+    : "pages/movie-details.html";
   container.innerHTML = list.map(m => `
     <article class="movie-card">
-      <a href="movie-details.html?id=${m.id}" class="poster-wrap">
+      <a href="${movieDetailsPath}?id=${m.id}" class="poster-wrap">
         <img src="${m.poster}" alt="${m.title} poster">
         <span class="rating">★ ${m.rating}</span>
       </a>
