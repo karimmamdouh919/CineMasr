@@ -10,6 +10,7 @@ const signToken = (id) => {
 export const register = async (req, res) => {
   try {
     const { first_name, last_name, email, password, phone, birthDate, gender } = req.body;
+    
      if (!first_name || !last_name || !email || !password || !birthDate || !gender) {
       return res.status(400).json({ message: 'All fields are required' });
     }
