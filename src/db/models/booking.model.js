@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const orderSchema = new mongoose.Schema({
   // References
@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
   discountAmount: { type: Number, default: 0 },      // Applied promo/coupon code
   totalAmount: { type: Number, required: true },     // Grand total charged to customer
 
-  currency: { type: String, default: 'USD' },
+  currency: { type: String, default: 'EGP'},
 
   // PAYMENT & GATEWAY METADATA
   paymentStatus: {
@@ -48,5 +48,6 @@ const orderSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 orderSchema.index({ userId: 1, createdAt: -1 });
-export const orderModel = mongoose.model('Order', orderSchema);
+
+export const bookingModel = mongoose.model('Booking', orderSchema);
 

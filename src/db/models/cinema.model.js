@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose'
 // Cinema.js (Branch)
 const cinemaSchema = new mongoose.Schema({
   name: { type: String, required: true },

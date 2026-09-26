@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const showtimeSchema = new mongoose.Schema({
   movieId: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie', required: true },

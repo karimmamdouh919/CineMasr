@@ -60,7 +60,7 @@ body {
 .avatar { background: var(--gold); color: #101313; }
 
 .hero {
-  min-height: 590px;
+  min-height: clamp(540px, 56.25vw, 740px);
   background:
     linear-gradient(90deg,  #101313 0%, rgba(19, 19, 16, 0.9) 38%, rgba(0, 0, 0, 0.089) 78%),
     url('https://cdn.kinocheck.com/i/6jn0djqptt.jpg') center/cover;

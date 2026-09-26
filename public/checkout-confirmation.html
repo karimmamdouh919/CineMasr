@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation</title>
+  <link rel="stylesheet" href="./css/checkout-confirmation.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <main class="confirmation-container">
+    
+    <!-- 1. LOADING STATE -->
+    <div id="loading-view" class="state-card">
+      <div class="spinner"></div>
+      <p id="loading-text">Fetching booking details...</p>
+    </div>
+
+    <!-- 2. ERROR STATE -->
+    <div id="error-view" class="state-card error-card hidden">
+      <h2>Booking Lookup Failed</h2>
+      <p id="error-message"></p>
+      <button class="btn-secondary" onclick="window.location.href='/'">Return to Home</button>
+    </div>
+
+    <!-- 3. CONFIRMATION DETAILS -->
+    <div id="confirmation-view" class="state-card confirmation-card hidden">
+      
+      <div class="receipt-header">
+        <div id="status-icon" class="status-icon"></div>
+        <h1 id="status-title">Booking Confirmed!</h1>
+        <p id="status-subtext" class="subtext"></p>
+        <span id="booking-status" class="status-badge"></span>
+      </div>
+
+      <!-- Movie & Venue Section -->
+      <div class="movie-section">
+        <img id="movie-poster" class="movie-poster" src="" alt="Movie Poster" />
+        <div class="movie-info">
+          <h2 id="movie-title"></h2>
+          <div class="movie-meta">
+            <span id="movie-rating" class="meta-tag"></span>
+            <span id="movie-duration" class="meta-tag"></span>
+            <span id="showtime-format" class="meta-tag highlight"></span>
+          </div>
+          <div class="venue-info">
+            <p><strong>Cinema:</strong> <span id="cinema-name"></span> (<span id="cinema-location"></span>)</p>
+            <p><strong>Hall:</strong> <span id="hall-name"></span></p>
+            <p><strong>Showtime:</strong> <span id="showtime-date" class="highlight-time"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Seats Section -->
+      <div class="details-box">
+        <h3>Seats & Admission</h3>
+        <div id="seats-list" class="seats-grid"></div>
+      </div>
+
+      <!-- Snacks Section (Conditional) -->
+      <div id="snacks-section" class="details-box hidden">
+        <h3>Concessions / Snacks</h3>
+        <ul id="snacks-list" class="snacks-list"></ul>
+      </div>
+
+      <!-- Payment Breakdown Box -->
+      <div class="details-box">
+        <h3>Payment Breakdown</h3>
+        <div class="detail-row">
+          <span class="label">Tickets Subtotal:</span>
+          <span id="tickets-subtotal" class="value"></span>
+        </div>
+        <div id="snacks-subtotal-row" class="detail-row hidden">
+          <span class="label">Snacks Subtotal:</span>
+          <span id="snacks-subtotal" class="value"></span>
+        </div>
+        <div id="discount-row" class="detail-row hidden">
+          <span class="label">Discount:</span>
+          <span id="discount-amount" class="value"></span>
+        </div>
+        <div class="detail-row total-row">
+          <span class="label">Total Paid:</span>
+          <span class="value"><span id="booking-total"></span> EGP</span>
+        </div>
+      </div>
+
+      <!-- Metadata Reference -->
+      <div class="payment-meta">
+        <div class="meta-item">
+          <span class="label">Booking Ref ID:</span>
+          <span id="booking-id" class="code"></span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Transaction ID:</span>
+          <span id="transaction-id" class="code"></span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Payment Method:</span>
+          <span id="payment-method" class="code"></span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="button-group">
+            <button class="btn-secondary" onclick="downloadPDF()">Download PDF</button>
+            <button id="home-btn" onclick="window.location.href='/'">Return to Home</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="./js/checkout-confirmation.js"></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+/* Base & Layout Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.confirmation-container {
+  width: 100%;
+  max-width: 580px;
+  margin: 20px auto;
+}
+
+.state-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  margin: 0 auto 16px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#loading-text {
+  color: #555555;
+  font-size: 15px;
+  text-align: center;
+}
+
+/* Error Card */
+.error-card {
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  text-align: center;
+}
+
+.error-card h2 {
+  color: #c53030;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+#error-message {
+  color: #9b2c2c;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Status Header */
+.receipt-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.status-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.confirmation-card h1 {
+  font-size: 22px;
+  color: #2d3748;
+  margin-bottom: 6px;
+}
+
+.subtext {
+  color: #718096;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.paid,
+.status-badge.bg-success {
+  color: #276749;
+  background-color: #c6f6d5;
+}
+
+.status-badge.pending,
+.status-badge.bg-warning {
+  color: #975a16;
+  background-color: #fefcbf;
+}
+
+.status-badge.failed,
+.status-badge.bg-danger {
+  color: #9b2c2c;
+  background-color: #fed7d7;
+}
+
+/* Movie & Venue Info */
+.movie-section {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.movie-poster {
+  width: 100px;
+  height: 145px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #edf2f7;
+  border: 1px solid #e2e8f0;
+}
+
+.movie-info {
+  flex: 1;
+}
+
+.movie-info h2 {
+  font-size: 18px;
+  color: #1a202c;
+  margin-bottom: 6px;
+}
+
+.movie-meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.meta-tag {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.meta-tag.highlight {
+  background: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.venue-info p {
+  font-size: 13px;
+  color: #4a5568;
+  margin-bottom: 3px;
+}
+
+.highlight-time {
+  color: #2b6cb0;
+  font-weight: bold;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px dashed #cbd5e0;
+  margin: 18px 0;
+}
+
+/* Details Box (Receipt Sections) */
+.details-box {
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.details-box h3 {
+  font-size: 14px;
+  color: #2d3748;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Seats Grid */
+.seats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.seat-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #2d3748;
+}
+
+.seat-num {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Snacks List */
+.snacks-list {
+  list-style: none;
+  padding: 0;
+}
+
+.snack-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #4a5568;
+  padding: 4px 0;
+}
+
+/* Detail Rows & Financial Breakdown */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row .label {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.detail-row .value {
+  color: #1a202c;
+}
+
+.detail-row.total-row {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detail-row.total-row .value {
+  color: #2b6cb0;
+}
+
+/* Payment Metadata Box */
+.payment-meta {
+  background-color: #edf2f7;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.meta-item:last-child {
+  margin-bottom: 0;
+}
+
+.meta-item .label {
+  color: #718096;
+}
+
+.meta-item .code {
+  font-family: monospace;
+  color: #2d3748;
+  font-weight: bold;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 12px;
+}
+
+#home-btn,
+.btn-secondary {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+#home-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+#home-btn:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.btn-secondary:hover {
+  background-color: #cbd5e0;
+}
+
+/* Print Stylesheet */
+@media print {
+  body {
+    background: white;
+  }
+  .state-card {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+  .button-group {
+    display: none !important;
+  }
+}
