@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - CineMisr</title>
-  <link rel="stylesheet" href="../css/login.css">
-  <link rel="stylesheet" href="../css/seats.css">
-  <link rel="stylesheet" href="../css/checkout.css">
-  <link rel="stylesheet" href="../css/account-nav.css">
-  <link rel="stylesheet" href="../css/admin.css">
+  <title>Admin Dashboard — CineMisr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./css/seats.css">
+  <link rel="stylesheet" href="./css/checkout.css">
+  <link rel="stylesheet" href="./css/account-nav.css">
+  <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
-
   <nav class="account-nav">
-    <a href="index.html" class="nav-logo">CineMisr</a>
+    <a href="../index.html" class="nav-logo">CineMisr</a>
     <div class="nav-links">
       <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
       <a href="#" class="nav-link" data-section="movies">Movies</a>
@@ -27,16 +29,12 @@
   </nav>
 
   <div class="snacks-page admin-page" id="adminPage">
-
     <div class="seats-header">
       <h1 class="page-title" id="pageTitle">Admin Dashboard</h1>
       <p class="page-subtitle" id="pageSubtitle">Manage movies, bookings and users</p>
     </div>
-
     <div id="statsGrid" class="stats-grid"></div>
-
     <div id="sectionContent"></div>
-
   </div>
 
   <div id="modalOverlay" class="modal-overlay hidden">
@@ -49,6 +47,9 @@
     </div>
   </div>
 
-  <script src="../js/admin.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/api.js" onerror="console.warn('api.js failed to load from ./js/api.js')"></script>
+  <script src="./js/admin.js"></script>
 </body>
 </html>

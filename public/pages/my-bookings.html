@@ -15,11 +15,11 @@
 <body>
 
   <nav class="account-nav">
-    <a href="/public/index.html" class="nav-logo">CineMisr</a>
+    <a href="../index.html" class="nav-logo">CineMisr</a>
     <div class="nav-links">
       <a href="profile.html" class="nav-link">Profile</a>
       <a href="my-bookings.html" class="nav-link active">My Bookings</a>
-      <a href="login.html" class="nav-link" id="logoutLink">Logout</a>
+      <a href="javascript:void(0)" class="nav-link" id="logoutLink">Logout</a>
     </div>
   </nav>
 
@@ -36,6 +36,9 @@
 
   </div>
 
+  <!-- External & Core API Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../js/api.js"></script>
   <script src="../js/my-bookings.js"></script>
 </body>
 </html>

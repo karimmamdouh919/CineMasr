@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="CineMisr movie booking frontend">
-  <title>CineMisr</title>
+  <title>CineMisr — Home</title>
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/redesign.css">
 </head>
@@ -18,7 +18,7 @@
   </a>
 
   <nav>
-    <a href="./index.html" data-nav="home">Home</a>
+    <a href="./index.html" class="active" data-nav="home">Home</a>
     <a href="./pages/movies.html" data-nav="movies">Movies</a>
     <a href="./pages/search.html" data-nav="search">Search</a>
   </nav>
@@ -28,32 +28,33 @@
     <a href="./login.html" id="navLogin" data-nav="login">Login</a>
     <a href="./register.html" id="navRegister" data-nav="register">Sign Up</a>
     <a class="icon-btn" href="./pages/search.html" aria-label="Search">⌕</a>
-    <a class="avatar" href="./pages/movies.html">CM</a>
+    <a class="avatar" href="./user_profile.html" id="userAvatar" style="display:none">CM</a>
   </div>
 </header>
 
 <main>
 
-<section class="hero">
+<!-- Dynamic Hero Section -->
+<section class="hero" id="heroSection">
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <span class="eyebrow">NOW SHOWING</span>
+    <span class="eyebrow" id="heroEyebrow">NOW SHOWING</span>
 
-    <h1>John Wick 4</h1>
+    <h1 id="heroTitle">Loading Latest Release...</h1>
 
-    <p>
-      More action, more intensity, more John Wick.
-      Explore the latest movies and choose your perfect showtime.
+    <p id="heroDesc">
+      Discover the latest movies and choose your perfect showtime.
     </p>
 
-    <div class="hero-buttons">
-      <a class="btn primary" href="pages/movie-details.html?id=1">Book Now</a>
-<a class="btn ghost" href="pages/movie-details.html?id=1">View Details</a>
+    <div class="hero-buttons" id="heroButtons">
+      <a class="btn primary" id="heroBookBtn" href="#">Book Now</a>
+      <a class="btn ghost" id="heroDetailsBtn" href="#">View Details</a>
     </div>
   </div>
 </section>
 
+<!-- Dynamic Popular Movies Section -->
 <section class="section">
   <div class="section-heading">
     <div>
@@ -64,11 +65,12 @@
     <a href="./pages/movies.html" class="text-link">View All →</a>
   </div>
 
-  <div class="movie-grid compact" id="popularMovies"></div>
+  <div class="movie-grid compact" id="popularMovies">
+    <p style="color: var(--text-muted); padding: 20px 0;">Fetching popular movies from backend...</p>
+  </div>
 </section>
 
 <section class="feature-strip">
-
   <div>
     <span class="feature-icon">📍</span>
     <div>
@@ -92,41 +94,36 @@
       <p>Choose a date and available time.</p>
     </div>
   </div>
-
 </section>
 
-</main>
-
-<section class="coming-soon-section section">
-
+<!-- Dynamic Coming Soon Section -->
+<section class="coming-soon-section section" id="comingSoonSection">
   <div class="cs-sidebar">
     <h2 class="cs-main-title">Coming Soon</h2>
     <div class="cs-list" id="cs-list">
-     
+      <!-- Populated dynamically via JS -->
     </div>
   </div>
 
- 
   <div class="cs-display" id="cs-display">
     <div class="cs-display-overlay"></div>
-    <div class="cs-tags" id="cs-tags">
-  
-    </div>
+    <div class="cs-tags" id="cs-tags"></div>
     
     <div class="cs-info">
       <h3 class="cs-large-date" id="cs-large-date"></h3>
       <div class="cs-title-row">
-        <h1 class="cs-movie-title" id="cs-movie-title"></h1>
+        <h1 class="cs-movie-title" id="cs-movie-title">Select a Movie</h1>
         <div class="cs-director">
-          <span>DIRECTOR</span>
-          <strong id="cs-director-name"></strong>
+          <span>STARRING</span>
+          <strong id="cs-director-name">--</strong>
         </div>
       </div>
       <p class="cs-movie-desc" id="cs-movie-desc"></p>
     </div>
   </div>
 </section>
-  
+
+<!-- Gallery Section -->
 <section class="gallery-section section">
   <div class="gallery-header">
     <div class="gallery-title-wrapper">
@@ -172,6 +169,7 @@
   </div>
 </section>
 
+<!-- About Section -->
 <section class="about-section section">
   <div class="about-image-wrapper">
     <img src="https://www.falconerremovals.co.uk/wp-content/uploads/2022/08/Copy-of-Falconer-Removals-Template-2-e1672847511168.jpg" alt="Cinema History">
@@ -210,9 +208,9 @@
   </div>
 </section>
 
+</main>
 
 <footer class="footer">
-
   <div>
     <strong>Cine<span>Misr</span></strong>
     <p>Your movie night, made simple.</p>
@@ -225,32 +223,198 @@
   </div>
 
   <p class="copyright">
-    © 2026 CineMisr — Frontend 1
+    © 2026 CineMisr — Frontend
   </p>
-
 </footer>
 
-<script src="./js/data.js"></script>
+<!-- External Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./js/api.js"></script>
 <script src="./js/main.js"></script>
 
+<!-- Dynamic Backend Controller -->
 <script>
-  renderMovieCards(
-    document.getElementById('popularMovies'),
-    movies.slice(0,5),
-    true
-  );
+  document.addEventListener('DOMContentLoaded', () => {
+    initNavbarAuth();
+    loadHomePageData();
+  });
 
-  (function() {
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
-  if (user) {
-    document.getElementById('navLogin').style.display = 'none';
-    document.getElementById('navRegister').style.display = 'none';
-    document.getElementById('navProfile').style.display = '';
+  // 1. Auth & Navbar State Management
+  function initNavbarAuth() {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (token && user) {
+      document.getElementById('navLogin').style.display = 'none';
+      document.getElementById('navRegister').style.display = 'none';
+      document.getElementById('navProfile').style.display = 'inline-block';
+      
+      const avatar = document.getElementById('userAvatar');
+      if (avatar) {
+        avatar.style.display = 'flex';
+        avatar.textContent = (user.first_name?.[0] || 'U').toUpperCase() + (user.last_name?.[0] || 'M').toUpperCase();
+      }
+    }
   }
-})();
+
+  // 2. Fetch Dynamic Data from Backend API
+  async function loadHomePageData() {
+    try {
+      // Endpoint: GET /api/v1/movies
+      const response = await api.get('/movies');
+      
+      // Extract array safely from { success: true, count: X, data: [...] }
+      const moviesList = Array.isArray(response)
+        ? response
+        : (Array.isArray(response.data) ? response.data : (response.data?.data || []));
+
+      if (!moviesList || moviesList.length === 0) {
+        document.getElementById('popularMovies').innerHTML = '<p style="color:var(--text-muted)">No movies currently available.</p>';
+        return;
+      }
+
+      // Render Dynamic Sections
+      renderHeroSection(moviesList[0]);
+      renderPopularMovies(moviesList);
+      renderComingSoonSection(moviesList);
+
+    } catch (error) {
+      console.error('Failed to load home page data from backend:', error);
+      document.getElementById('popularMovies').innerHTML = 
+        '<p style="color:var(--error)">Unable to load movies from backend server. Please make sure your Express server is running.</p>';
+    }
+  }
+
+  // 3. Render Hero Section
+  function renderHeroSection(featuredMovie) {
+    if (!featuredMovie) return;
+
+    const movieId = featuredMovie._id || featuredMovie.id;
+    document.getElementById('heroTitle').textContent = featuredMovie.title || 'Featured Movie';
+    document.getElementById('heroDesc').textContent = featuredMovie.description || 'Explore showtimes and book your tickets now.';
+    
+    // Set Action Button URLs
+    const detailsUrl = `./pages/movie-details.html?id=${movieId}`;
+    document.getElementById('heroBookBtn').href = detailsUrl;
+    document.getElementById('heroDetailsBtn').href = detailsUrl;
+
+    // Apply poster background (matches movieModel.posterUrl)
+    const heroBg = featuredMovie.posterUrl || featuredMovie.bannerImage || featuredMovie.posterImage;
+    if (heroBg) {
+      const heroSec = document.getElementById('heroSection');
+      heroSec.style.backgroundImage = `linear-gradient(to right, rgba(10,10,15,0.9), rgba(10,10,15,0.4)), url('${heroBg}')`;
+      heroSec.style.backgroundSize = 'cover';
+      heroSec.style.backgroundPosition = 'center';
+    }
+  }
+
+  // 4. Render Popular Movies Grid
+  function renderPopularMovies(allMovies) {
+    const popularContainer = document.getElementById('popularMovies');
+    
+    // Filter active movies (status !== 'Coming Soon' && status !== 'Archived')
+    const popularList = allMovies
+      .filter(m => m.status?.toLowerCase() === 'now showing' || m.status !== 'Coming Soon')
+      .slice(0, 5);
+
+    const displayList = popularList.length > 0 ? popularList : allMovies.slice(0, 5);
+
+    popularContainer.innerHTML = displayList.map(movie => {
+      const id = movie._id || movie.id;
+      // Matches movieModel.posterUrl and movieModel.genres
+      const poster = movie.posterUrl || movie.posterImage || 'https://via.placeholder.com/300x450?text=No+Poster';
+      const genreStr = Array.isArray(movie.genres) ? movie.genres.join(', ') : (movie.genre || 'Cinema');
+      
+      return `
+        <div class="movie-card">
+          <a href="./pages/movie-details.html?id=${id}">
+            <div class="card-poster">
+              <img src="${poster}" alt="${movie.title}">
+            </div>
+            <div class="card-info">
+              <span class="genre">${genreStr}</span>
+              <h3>${movie.title}</h3>
+            </div>
+          </a>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 5. Dynamic Coming Soon Interactive Section
+  function renderComingSoonSection(allMovies) {
+    const csList = document.getElementById('cs-list');
+    
+    // Perform case-insensitive check against enum ['Now Showing', 'Coming Soon', 'Archived']
+    let comingSoonMovies = allMovies.filter(m => 
+      m.status?.toLowerCase() === 'coming soon' || m.isComingSoon
+    );
+
+    if (comingSoonMovies.length === 0) {
+      comingSoonMovies = allMovies.slice(Math.max(0, allMovies.length - 3));
+    }
+
+    if (comingSoonMovies.length === 0) {
+      document.getElementById('comingSoonSection').style.display = 'none';
+      return;
+    }
+
+    // Render list items
+    csList.innerHTML = comingSoonMovies.map((movie, index) => {
+      const releaseDate = movie.releaseDate ? new Date(movie.releaseDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'TBA';
+      return `
+        <div class="cs-item ${index === 0 ? 'active' : ''}" onclick="selectComingSoonMovie(${index})">
+          <div class="cs-item-title">${movie.title}</div>
+          <div class="cs-item-date">${releaseDate}</div>
+        </div>
+      `;
+    }).join('');
+
+    window.csMoviesCache = comingSoonMovies;
+    selectComingSoonMovie(0);
+  }
+
+  // Switch displayed Coming Soon details on click
+  function selectComingSoonMovie(index) {
+    const movies = window.csMoviesCache;
+    if (!movies || !movies[index]) return;
+
+    const movie = movies[index];
+    const display = document.getElementById('cs-display');
+
+    document.querySelectorAll('.cs-item').forEach((item, idx) => {
+      item.classList.toggle('active', idx === index);
+    });
+
+    // Populate info (Starring replaces director in schema)
+    document.getElementById('cs-movie-title').textContent = movie.title || '';
+    
+    const starringStr = Array.isArray(movie.starring) && movie.starring.length > 0 
+      ? movie.starring.join(', ') 
+      : (movie.director || 'CineMisr Choice');
+    document.getElementById('cs-director-name').textContent = starringStr;
+
+    document.getElementById('cs-movie-desc').textContent = movie.description || 'Full trailer and showtimes releasing soon.';
+    
+    const releaseStr = movie.releaseDate 
+      ? new Date(movie.releaseDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      : 'COMING SOON';
+    document.getElementById('cs-large-date').textContent = releaseStr;
+
+    // Genres array (movieModel.genres)
+    const tagsContainer = document.getElementById('cs-tags');
+    const genresList = Array.isArray(movie.genres) ? movie.genres : [movie.genre || 'Action'];
+    tagsContainer.innerHTML = genresList.map(g => `<span class="cs-tag">${g}</span>`).join('');
+
+    // Background poster
+    const backdrop = movie.posterUrl || movie.bannerImage || movie.posterImage;
+    if (backdrop) {
+      display.style.backgroundImage = `linear-gradient(to right, rgba(10,10,15,0.95), rgba(10,10,15,0.6)), url('${backdrop}')`;
+      display.style.backgroundSize = 'cover';
+      display.style.backgroundPosition = 'center';
+    }
+  }
 </script>
 
 </body>
 </html>
-
-

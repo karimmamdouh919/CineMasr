@@ -1,35 +1,53 @@
-function renderMovieCards(container, list, compact=false){
-  if(!container) return;
+function renderMovieCards(container, list, compact = false) {
+  if (!container) return;
   const movieDetailsPath = location.pathname.includes("/pages/")
     ? "movie-details.html"
     : "pages/movie-details.html";
-  container.innerHTML = list.map(m => `
-    <article class="movie-card">
-      <a href="${movieDetailsPath}?id=${m.id}" class="poster-wrap">
-        <img src="${m.poster}" alt="${m.title} poster">
-        <span class="rating">★ ${m.rating}</span>
-      </a>
-      <div class="movie-info">
-        <h3>${m.title}</h3>
-        <div class="chips">${m.genre.slice(0,2).map(g=>`<span>${g}</span>`).join("")}</div>
-        ${compact ? "" : `<p>${m.language} • ${m.duration}</p>`}
-      </div>
-    </article>`).join("");
+
+  container.innerHTML = list.map(m => {
+    const id = m._id || m.id;
+    const poster = m.posterUrl || m.poster || '../assets/images/poster-placeholder.jpg';
+    const title = m.title || 'Untitled';
+    const rating = m.rating || 'N/A';
+    const language = m.language || 'English';
+    const duration = m.duration || '2h';
+    
+    let genreChips = '';
+    if (Array.isArray(m.genre)) {
+      genreChips = m.genre.slice(0, 2).map(g => `<span>${g}</span>`).join("");
+    } else if (typeof m.genre === 'string') {
+      genreChips = m.genre.split(',').slice(0, 2).map(g => `<span>${g.trim()}</span>`).join("");
+    }
+
+    return `
+      <article class="movie-card">
+        <a href="${movieDetailsPath}?id=${id}" class="poster-wrap">
+          <img src="${poster}" alt="${title} poster" onerror="this.src='../assets/images/poster-placeholder.jpg'">
+          <span class="rating">★ ${rating}</span>
+        </a>
+        <div class="movie-info">
+          <h3>${title}</h3>
+          <div class="chips">${genreChips}</div>
+          ${compact ? "" : `<p>${language} •${duration}</p>`}
+        </div>
+      </article>`;
+  }).join("");
 }
 
-function setActiveNav(){
+function setActiveNav() {
   const page = location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll("[data-nav]").forEach(a=>{
+  document.querySelectorAll("[data-nav]").forEach(a => {
     const target = a.dataset.nav;
-    if((target==="home" && page==="index.html") ||
-       (target==="movies" && page==="movies.html") ||
-       (target==="search" && page==="search.html")) a.classList.add("active");
+    if ((target === "home" && page === "index.html") ||
+        (target === "movies" && page === "movies.html") ||
+        (target === "search" && page === "search.html")) {
+      a.classList.add("active");
+    }
   });
 }
 setActiveNav();
 
-
-// بيانات الأفلام القادمة 
+// Coming Soon Section Data & Logic
 const comingSoonData = [
   {
     id: "01",
@@ -82,27 +100,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const csDirectorName = document.getElementById("cs-director-name");
   const csMovieDesc = document.getElementById("cs-movie-desc");
 
-  // دالة لتحديث الشاشة اليمنى
+  if (!csList || !csDisplay) return;
+
   function updateDisplay(movie) {
-    csDisplay.style.backgroundImage = `url('${movie.bg}')`;
-    csLargeDate.textContent = movie.date;
-    csMovieTitle.textContent = movie.title;
-    csDirectorName.textContent = movie.director;
-    csMovieDesc.textContent = movie.desc;
+    if (csDisplay) csDisplay.style.backgroundImage = `url('${movie.bg}')`;
+    if (csLargeDate) csLargeDate.textContent = movie.date;
+    if (csMovieTitle) csMovieTitle.textContent = movie.title;
+    if (csDirectorName) csDirectorName.textContent = movie.director;
+    if (csMovieDesc) csMovieDesc.textContent = movie.desc;
     
-    // تحديث التصنيفات (Tags)
-    csTags.innerHTML = "";
-    movie.tags.forEach(tag => {
-      const span = document.createElement("span");
-      span.textContent = tag;
-      csTags.appendChild(span);
-    });
+    if (csTags) {
+      csTags.innerHTML = "";
+      movie.tags.forEach(tag => {
+        const span = document.createElement("span");
+        span.textContent = tag;
+        csTags.appendChild(span);
+      });
+    }
   }
 
-  // بناء القائمة الجانبية
   comingSoonData.forEach((movie, index) => {
     const item = document.createElement("div");
-    item.className = `cs-item ${index === 0 ? "active" : ""}`; // تفعيل أول فيلم افتراضياً
+    item.className = `cs-item ${index === 0 ? "active" : ""}`;
     
     item.innerHTML = `
       <span class="cs-item-number">${movie.id}</span>
@@ -114,20 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
       <span class="cs-arrow">→</span>
     `;
 
-    // إضافة تأثير الـ Hover
     item.addEventListener("mouseenter", () => {
-      // إزالة الصنف active من جميع العناصر
       document.querySelectorAll(".cs-item").forEach(el => el.classList.remove("active"));
-      // إضافته للعنصر الحالي
       item.classList.add("active");
-      // تحديث البيانات
       updateDisplay(movie);
     });
 
     csList.appendChild(item);
   });
 
-  // عرض بيانات أول فيلم عند تحميل الصفحة
   if (comingSoonData.length > 0) {
     updateDisplay(comingSoonData[0]);
   }

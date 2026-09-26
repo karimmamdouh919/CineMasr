@@ -13,7 +13,7 @@ function renderEmpty() {
   container.innerHTML = `
     <div class="state-message">
       <p>You don't have any bookings yet.</p>
-      <a href="index.html">Browse movies to book your first ticket</a>
+      <a href="../index.html" class="btn primary" style="margin-top: 15px; display: inline-block;">Browse movies to book your first ticket</a>
     </div>
   `;
 }
@@ -22,7 +22,7 @@ function renderError(message) {
   container.innerHTML = `
     <div class="state-message">
       <p>${message || 'Something went wrong while loading your bookings.'}</p>
-      <a href="my-bookings.html">Try again</a>
+      <a href="javascript:loadBookings()" class="btn secondary" style="margin-top: 10px; display: inline-block;">Try again</a>
     </div>
   `;
 }
@@ -33,51 +33,110 @@ function renderBookings(bookings) {
     return;
   }
 
-  container.innerHTML = `
-    <div class="bookings-list">
-      ${bookings.map(b => {
-        const total = (b.seatsSubtotal || 0) + (b.snacksSubtotal || 0);
-        const statusClass = (b.status || 'confirmed').toLowerCase();
-        const dateStr = b.bookedAt ? new Date(b.bookedAt).toLocaleDateString() : '—';
+  // Generate cards HTML separately to avoid nested template literal syntax errors
+  const cardsHtml = bookings.map(b => {
+    const seatsSub = Number(b.seatsSubtotal) || 0;
+    const snacksSub = Number(b.snacksSubtotal) || 0;
+    const computedTotal = seatsSub + snacksSub;
+    const total = Number(b.totalAmount || b.total) || computedTotal;
 
-        return `
-          <div class="booking-card">
-            <div class="booking-card-header">
-              <p class="booking-movie">${b.movieName || 'Unknown Movie'}</p>
-              <span class="booking-id-small">${b.bookingId || ''}</span>
-            </div>
-            <div class="booking-details">
-              <div>${b.cinemaName || '—'}</div>
-              <div>Seats: ${(b.seats || []).join(', ') || '—'}</div>
-              <div>Date: ${dateStr}</div>
-              <div>Total: EGP ${total}</div>
-            </div>
-            <span class="booking-status ${statusClass}">${b.status || 'Confirmed'}</span>
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
+    const statusClass = String(b.status || 'confirmed').toLowerCase();
+    
+    let dateStr = '—';
+    if (b.bookedAt || b.createdAt || b.date) {
+      const rawDate = b.bookedAt || b.createdAt || b.date;
+      dateStr = new Date(rawDate).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    const seatsFormatted = Array.isArray(b.seats) ? b.seats.join(', ') : (b.seats || '—');
+    
+    let snacksHtml = '';
+    if (Array.isArray(b.snacks) && b.snacks.length > 0) {
+      const itemsStr = b.snacks.map(s => {
+        const opt = s.option ? ` (${s.option})` : '';
+        return `${s.qty || 1}x ${s.name || 'Snack'}${opt}`;
+      }).join(', ');
+      snacksHtml = `<div>🍿 Snacks: ${itemsStr}</div>`;
+    }
+
+    const movieTitle = b.movieName || b.movieTitle || (b.movie && b.movie.title) || 'Unknown Movie';
+    const cinemaTitle = b.cinemaName || (b.cinema && b.cinema.name) || 'CineMisr Cinema';
+    const bookingRef = b.bookingId || b._id || b.id || '';
+    const shortRef = bookingRef ? '#' + String(bookingRef).slice(-8) : '';
+
+    return `
+      <div class="booking-card">
+        <div class="booking-card-header">
+          <p class="booking-movie">${movieTitle}</p>
+          <span class="booking-id-small">${shortRef}</span>
+        </div>
+        <div class="booking-details">
+          <div>📍 ${cinemaTitle}</div>
+          <div>🎟 Seats: ${seatsFormatted}</div>
+          ${snacksHtml}
+          <div>📅 Date: ${dateStr}</div>
+          <div><strong>Total: EGP ${total}</strong></div>
+        </div>
+        <span class="booking-status ${statusClass}">${b.status || 'Confirmed'}</span>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = `<div class="bookings-list">${cardsHtml}</div>`;
 }
 
-// TODO: replace with real Backend 3 endpoint
 async function loadBookings() {
   renderLoading();
-  await new Promise(resolve => setTimeout(resolve, 600));
 
   try {
-    const lastBooking = JSON.parse(localStorage.getItem('cinemisr_last_booking') || 'null');
-    const bookings = lastBooking ? [lastBooking] : [];
-    renderBookings(bookings);
+    const res = await api.get('/bookings');
+    let list = res.data;
+    if (list && list.data) list = list.data;
+    if (list && list.bookings) list = list.bookings;
+
+    if (Array.isArray(list)) {
+      renderBookings(list);
+      return;
+    }
   } catch (err) {
-    renderError('Could not read booking data');
+    console.warn('Backend API booking retrieval failed, attempting LocalStorage fallback:', err.message);
+  }
+
+  // LocalStorage Fallback strategy
+  try {
+    const lastBooking = JSON.parse(localStorage.getItem('cinemisr_last_booking') || 'null');
+    const storedBooking = JSON.parse(localStorage.getItem('cinemisr_booking') || 'null');
+    
+    const fallbackList = [];
+    if (lastBooking) fallbackList.push(lastBooking);
+    if (storedBooking && storedBooking.seats && storedBooking.seats.length > 0) {
+      if (!lastBooking || lastBooking.bookingId !== storedBooking.bookingId) {
+        fallbackList.push(storedBooking);
+      }
+    }
+
+    renderBookings(fallbackList);
+  } catch (err) {
+    renderError('Could not read saved booking data.');
   }
 }
 
-loadBookings();
+document.addEventListener('DOMContentLoaded', () => {
+  loadBookings();
 
-document.getElementById('logoutLink').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  window.location.href = '../index.html';
+  const logoutBtn = document.getElementById('logoutLink');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('token');
+      localStorage.removeItem('cinemisr_user');
+      window.location.href = 'login.html';
+    });
+  }
 });
-
