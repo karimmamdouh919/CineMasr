@@ -6,7 +6,7 @@ import {
   deleteSnack
 } from './snack.controller.js';
 
- const router = express.Router();
+const router = express.Router();
 
 router.get('/', getAllSnacks);
 

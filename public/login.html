@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineMasr — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --dark: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: rgba(201,168,76,0.18);
+      --text: #f0ece4;
+      --text-muted: #7a7880;
+      --error: #e05c5c;
+      --success: #4caf87;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Left cinematic panel ── */
+    .cinema-panel {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cinema-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 110%, rgba(201,168,76,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at -10% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        linear-gradient(160deg, #0d0d18 0%, #0a0a0f 100%);
+    }
+
+    /* Film strip lines */
+    .film-strip {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 52px;
+      background: #0d0d0d;
+      border-right: 1px solid rgba(201,168,76,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 0;
+      z-index: 1;
+    }
+
+    .film-hole {
+      width: 24px; height: 18px;
+      border: 2px solid rgba(201,168,76,0.25);
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin: 6px 0;
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 60px 0 80px;
+    }
+
+    .brand-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: -0.5px;
+      line-height: 1;
+      text-shadow: 0 0 60px rgba(201,168,76,0.4);
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    .panel-tagline {
+      margin-top: 48px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      color: rgba(240,236,228,0.55);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .panel-decoration {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .deco-line {
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+    .deco-line.rev { background: linear-gradient(90deg, var(--gold), transparent); }
+    .deco-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* Floating ticket bg shapes */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .shape-1 {
+      width: 300px; height: 300px;
+      border: 1px solid rgba(201,168,76,0.07);
+      top: 10%; right: 5%;
+      animation: slowRotate 20s linear infinite;
+    }
+    .shape-2 {
+      width: 180px; height: 180px;
+      border: 1px solid rgba(201,168,76,0.05);
+      bottom: 15%; right: 15%;
+      animation: slowRotate 30s linear infinite reverse;
+    }
+
+    @keyframes slowRotate {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Right form panel ── */
+    .form-panel {
+      width: 460px;
+      min-width: 420px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 48px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .form-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    }
+
+    .form-header { margin-bottom: 40px; }
+
+    .form-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .form-header p {
+      margin-top: 8px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .form-header a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .form-header a:hover { color: var(--gold-light); }
+
+    /* Fields */
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      padding: 13px 16px;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input::placeholder { color: rgba(122,120,128,0.5); }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+
+    input.error-field {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(224,92,92,0.1);
+    }
+
+    .field-error {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--error);
+      display: none;
+    }
+
+    /* Alert */
+    .alert {
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .alert.error { background: rgba(224,92,92,0.12); border: 1px solid rgba(224,92,92,0.3); color: #e87575; }
+    .alert.success { background: rgba(76,175,135,0.12); border: 1px solid rgba(76,175,135,0.3); color: #66c9a0; }
+    .alert.show { display: block; }
+
+    /* Submit */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border: none;
+      border-radius: 6px;
+      color: #0a0a0f;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.15s;
+      position: relative;
+    }
+
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-submit .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(10,10,15,0.3);
+      border-top-color: #0a0a0f;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      position: absolute;
+      right: 18px; top: 50%;
+      transform: translateY(-50%);
+    }
+    .btn-submit.loading .spinner { display: block; }
+
+    @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      body { flex-direction: column; overflow: auto; }
+      .cinema-panel { min-height: 220px; flex: none; }
+      .form-panel { width: 100%; min-width: unset; padding: 40px 28px; }
+      .film-strip { display: none; }
+      .panel-content { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left panel -->
+  <section class="cinema-panel">
+   
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="panel-content">
+      <div class="brand-logo">CineMasr</div>
+      <div class="brand-sub">Premium Cinema Experience</div>
+
+      <p class="panel-tagline">Where every frame tells a story worth remembering.</p>
+
+      <div class="panel-decoration">
+        <span class="deco-line"></span>
+        <span class="deco-dot"></span>
+        <span class="deco-line rev"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right form panel -->
+  <section class="form-panel">
+    <div class="form-header">
+      <h1>Welcome back</h1>
+      <p>Don't have an account? <a href="register.html">Sign up</a></p>
+    </div>
+
+    <div class="alert error" id="errorAlert"></div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+      <div class="field-error" id="emailErr">Please enter a valid email.</div>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+      <div class="field-error" id="passErr">Password is required.</div>
+    </div>
+
+    <button class="btn-submit" id="loginBtn" onclick="handleLogin()">
+      Sign In
+      <span class="spinner"></span>
+    </button>
+  </section>
+
+  <script>
+    async function handleLogin() {
+      const emailEl   = document.getElementById('email');
+      const passEl    = document.getElementById('password');
+      const btn       = document.getElementById('loginBtn');
+      const errorAlert = document.getElementById('errorAlert');
+
+      // Reset
+      [emailEl, passEl].forEach(el => el.classList.remove('error-field'));
+      ['emailErr','passErr'].forEach(id => document.getElementById(id).style.display = 'none');
+      errorAlert.classList.remove('show');
+
+      let valid = true;
+
+      if (!emailEl.value || !/\S+@\S+\.\S+/.test(emailEl.value)) {
+        emailEl.classList.add('error-field');
+        document.getElementById('emailErr').style.display = 'block';
+        valid = false;
+      }
+      if (!passEl.value) {
+        passEl.classList.add('error-field');
+        document.getElementById('passErr').style.display = 'block';
+        valid = false;
+      }
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.classList.add('loading');
+
+      try {
+        const res  = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailEl.value, password: passEl.value })
+        });
+
+        let data;
+        try { data = await res.json(); } catch { throw new Error('Login failed'); }
+
+        if (!res.ok) {
+          throw new Error(data.message || 'Login failed');
+        }
+
+        // Save token
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+
+        // Redirect based on role
+        const role = data.data.user.role;
+        if (role === 'admin' || role === 'cinema_manager') {
+          window.location.href = './pages/admin.html';
+        } else {
+          window.location.href = './index.html';
+        }
+
+      } catch (err) {
+        errorAlert.textContent = err.message;
+        errorAlert.classList.add('show', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleLogin();
+    });
+  </script>
+</body>
+</html>

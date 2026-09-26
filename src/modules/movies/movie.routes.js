@@ -7,7 +7,7 @@ import {
   deleteMovie
 } from './movie.controller.js';
 
- const router = express.Router();
+const router = express.Router();
 
 // Public routes
 router.get('/', getAllMovies);

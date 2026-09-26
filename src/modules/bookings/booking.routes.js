@@ -13,7 +13,7 @@ import {
 } from './booking.controller.js';
 import{protect} from '../../middlewares/Auth.Middleware.js'
 
- const router = express.Router();
+const router = express.Router();
 
 // User booking routes
 router.post('/hold-seats', holdSeats);

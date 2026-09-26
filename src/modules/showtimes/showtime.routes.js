@@ -7,7 +7,7 @@ import {
   deleteShowtime
 } from './showtime.controller.js';
 
- const router = express.Router();
+const router = express.Router();
 
 // Public routes
 router.get('/', getShowtimes);

@@ -1,0 +1,141 @@
+:root {
+  --bg: #101313;
+  --panel: #191d1c;
+  --panel-soft: #202625;
+  --line: rgba(236, 191, 92, 0.2);
+  --text: #f6f2e9;
+  --muted: #9fa7a2;
+  --purple: #d7a83f;
+  --purple2: #f0c96a;
+  --pink: #e56f4f;
+  --gold: #d7a83f;
+  --green: #7bc6a4;
+  --red: #e47d70;
+  --radius: 12px;
+}
+
+body {
+  background:
+    radial-gradient(circle at 88% 4%, rgba(215, 168, 63, 0.12), transparent 26%),
+    radial-gradient(circle at 8% 28%, rgba(123, 198, 164, 0.08), transparent 24%),
+    #101313;
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.navbar,
+.account-nav {
+  background: rgba(16, 19, 19, 0.92);
+  border-color: rgba(246, 242, 233, 0.1);
+}
+
+.navbar { height: 72px; }
+.brand, .nav-logo { color: var(--text); letter-spacing: -0.4px; }
+.brand { font-style: normal; }
+.brand span:last-child span, .footer strong span { color: var(--gold); }
+.brand-mark {
+  border-radius: 7px;
+  background: var(--gold);
+  color: #101313;
+  box-shadow: 0 6px 20px rgba(215, 168, 63, 0.2);
+}
+.navbar nav { gap: 24px; }
+.navbar nav a, .nav-link { color: var(--muted); }
+.navbar nav a.active, .navbar nav a:hover, .nav-link.active, .nav-link:hover { color: var(--text); }
+.navbar nav a.active:after, .nav-link.active { border-color: var(--gold); }
+.nav-actions > a:not(.icon-btn):not(.avatar) {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.nav-actions > a:not(.icon-btn):not(.avatar):hover,
+.nav-actions > a:not(.icon-btn):not(.avatar).active {
+  color: var(--text);
+}
+.icon-btn, .avatar {
+  background: var(--panel);
+  border-color: rgba(246, 242, 233, 0.14);
+}
+.avatar { background: var(--gold); color: #101313; }
+
+.hero {
+  min-height: clamp(540px, 56.25vw, 740px);
+  background:
+    linear-gradient(90deg,  #101313 0%, rgba(19, 19, 16, 0.9) 38%, rgba(0, 0, 0, 0.089) 78%),
+    url('https://cdn.kinocheck.com/i/6jn0djqptt.jpg') center/cover;
+}
+.hero h1, .page-header h1, .details-content h1, .section-heading h2 { letter-spacing: -1.8px; }
+.hero h1 { font-size: clamp(48px, 7vw, 76px); }
+.eyebrow { color: var(--gold); letter-spacing: 2.4px; }
+.btn.primary, .btn-primary {
+  background: var(--gold);
+  color: #101313;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(215, 168, 63, 0.18);
+}
+.btn.primary:hover, .btn-primary:hover { background: var(--purple2);}
+.btn.ghost, .btn-secondary { border-radius: 7px; border-color: rgba(246, 242, 233, 0.18); }
+.btn.ghost:hover, .btn-secondary:hover { border-color: var(--gold); background: rgba(215, 212, 63, 0.767); }
+
+.page, .section { max-width: 1280px; }
+.page-header { border-left: 3px solid var(--gold); padding-left: 18px; }
+.movie-grid { gap: 18px; }
+.movie-card, .cinema-card, .booking-summary, .admin-table-wrapper, .stat-card, .glass-card, .snack-card {
+  background: rgba(25, 29, 28, 0.94);
+  border-color: rgba(246, 242, 233, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+.movie-card:hover, .snack-card:hover, .stat-card:hover { border-color: rgba(215, 168, 63, 0.6); }
+.poster-wrap { background: #202625; }
+.rating { background: #101313; border-color: rgba(215, 168, 63, 0.45); color: var(--purple2); }
+.chips span, .booking-id { background: rgba(215, 168, 63, 0.09); border-color: rgba(215, 168, 63, 0.2); color: var(--purple2); }
+.toolbar, .search-mini, input, select, .snack-option-select {
+  background: var(--panel);
+  border-color: rgba(246, 242, 233, 0.14);
+  color: var(--text);
+}
+.search-mini:focus-within, input:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(215, 168, 63, 0.1); }
+.feature-strip {  border-block-color:#FFEB3B }
+.footer { border-top-color: rgba(246, 242, 233, 0.1); }
+
+.seats-page, .snacks-page { max-width: 980px; }
+.page-title { letter-spacing: -0.6px; }
+.screen-line { background: linear-gradient(to right, transparent, var(--gold), transparent); box-shadow: 0 0 18px rgba(215, 168, 63, 0.24); }
+.seat { background: #202625; border-color: rgba(246, 242, 233, 0.14); border-radius: 6px 6px 3px 3px; }
+.seat:hover:not(.seat-booked) { border-color: var(--gold); background: rgba(215, 168, 63, 0.1); }
+.seat-selected, .seat-sample.seat-selected { background: var(--gold); border-color: var(--gold); color: #101313; box-shadow: 0 0 12px rgba(215, 168, 63, 0.28); }
+.seat-sample.seat-available { background: #202625; }
+.glass-card { max-width: 520px; }
+.summary-total, .stat-value { color: var(--gold); }
+
+.account-nav { padding-inline: clamp(18px, 5vw, 72px); }
+.admin-page .seats-header, #profileContent, #bookingsContent { max-width: 980px; margin-inline: auto; }
+.admin-table th, .admin-table td { border-bottom-color: rgba(246, 242, 233, 0.1); }
+.table-action-btn { border-radius: 6px; border-color: rgba(246, 242, 233, 0.15); }
+.table-action-btn:hover { border-color: var(--gold); color: var(--text); }
+
+@media (max-width: 700px) {
+  .navbar { gap: 14px; padding-inline: 16px; }
+  .navbar nav { gap: 12px; }
+  .navbar nav a { font-size: 12px; }
+  .brand { font-size: 18px; }
+  .icon-btn { display: none; }
+  .hero { min-height: 520px; background-position: 64% center; }
+  .hero-content { margin-left: 22px; margin-right: 22px; padding-top: 110px; }
+  .hero h1 { font-size: clamp(42px, 13vw, 62px); }
+  .hero-buttons { flex-wrap: wrap; }
+  .movie-grid, .movie-grid.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .section-heading { align-items: start; gap: 12px; }
+  .section-heading h2 { font-size: 25px; }
+  .account-nav { align-items: flex-start; gap: 12px; }
+  .nav-links { flex-wrap: wrap; justify-content: flex-end; }
+  .seats-wrapper { margin-inline: -8px; }
+}
+
+@media (max-width: 420px) {
+  .movie-grid, .movie-grid.compact { grid-template-columns: 1fr 1fr; }
+  .page, .section { padding-inline: 16px; }
+  .navbar nav a[data-nav='search'] { display: none; }
+}
