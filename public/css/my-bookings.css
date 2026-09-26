@@ -1,0 +1,100 @@
+/* =========================================================
+   CineMisr - My Bookings
+   ========================================================= */
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.booking-card {
+  background: #211D35;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 16px;
+  padding: clamp(18px, 4vw, 24px);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.booking-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.booking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.booking-movie {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.booking-id-small {
+  font-size: 11px;
+  color: #A1A1AA;
+  letter-spacing: 0.5px;
+}
+
+.booking-details {
+  font-size: 13px;
+  color: #A1A1AA;
+  line-height: 1.6;
+}
+
+.booking-status {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin-top: 8px;
+}
+
+.booking-status.confirmed {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #22C55E;
+}
+
+.booking-status.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #EF4444;
+}
+
+/* ===== Loading / Empty / Error states ===== */
+
+.state-message {
+  text-align: center;
+  color: #A1A1AA;
+  padding: 60px 20px;
+}
+
+.state-message .spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #8B5CF6;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 0.7s linear infinite;
+}
+
+.state-message a {
+  color: #8B5CF6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.state-message a:hover {
+  color: #EC4899;
+}
