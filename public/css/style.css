@@ -1319,6 +1319,7 @@ select {
 }
 
 
+
 .coming-soon-section {
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -1334,7 +1335,7 @@ select {
 
 .cs-main-title {
   font-size: 32px;
-  font-family: serif; /* لمحاكاة الخط الموجود في الصورة */
+  font-family: serif; 
   font-weight: normal;
   margin-bottom: 30px;
   color: #FFFFFF;
@@ -1358,8 +1359,8 @@ select {
 }
 
 .cs-item:hover, .cs-item.active {
-  background: rgba(33, 29, 53, 0.5); /* نفس لون الـ panel2 */
-  border-left-color: #D4AF37; /* لون ذهبي */
+  background: rgba(33, 29, 53, 0.5); 
+  border-left-color: #D4AF37; 
 }
 
 .cs-item-number {
@@ -1495,6 +1496,7 @@ select {
   margin: 0;
 }
 
+
 @media (max-width: 900px) {
   .coming-soon-section {
     grid-template-columns: 1fr;
@@ -1503,7 +1505,6 @@ select {
     min-height: 400px;
   }
 }
-
 
 
 

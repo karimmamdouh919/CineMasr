@@ -96,26 +96,30 @@
   </div>
 </section>
 
-<!-- Dynamic Coming Soon Section -->
-<section class="coming-soon-section section" id="comingSoonSection">
+
+<section class="coming-soon-section section">
+  
   <div class="cs-sidebar">
     <h2 class="cs-main-title">Coming Soon</h2>
     <div class="cs-list" id="cs-list">
-      <!-- Populated dynamically via JS -->
+     
     </div>
   </div>
 
+ 
   <div class="cs-display" id="cs-display">
     <div class="cs-display-overlay"></div>
-    <div class="cs-tags" id="cs-tags"></div>
+    <div class="cs-tags" id="cs-tags">
+      
+    </div>
     
     <div class="cs-info">
       <h3 class="cs-large-date" id="cs-large-date"></h3>
       <div class="cs-title-row">
-        <h1 class="cs-movie-title" id="cs-movie-title">Select a Movie</h1>
+        <h1 class="cs-movie-title" id="cs-movie-title"></h1>
         <div class="cs-director">
-          <span>STARRING</span>
-          <strong id="cs-director-name">--</strong>
+          <span>DIRECTOR</span>
+          <strong id="cs-director-name"></strong>
         </div>
       </div>
       <p class="cs-movie-desc" id="cs-movie-desc"></p>
@@ -228,8 +232,8 @@
 </footer>
 
 <!-- External Dependencies -->
-<script src ="./js/data.js"></script>
 <script src="./js/main.js"></script>
+<script src ="./js/data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./js/api.js"></script>
 
@@ -425,6 +429,94 @@
       display.style.backgroundPosition = 'center';
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  const DEFAULT_POSTER = 'https://placehold.co/300x450/1f2937/ffffff?text=No+Poster';
+
+// 2. دالة ذكية للتحقق من رابط الصورة من أي اسم حقل متوقع (posterUrl, poster, image, الخ)
+function getPosterUrl(movie) {
+    if (!movie) return DEFAULT_POSTER;
+    const url = movie.posterUrl || movie.posterImage || movie.poster || movie.image;
+    
+    // إذا كان الرابط يبدأ بـ ../ نصلحه ليعمل من index.html
+    if (url && url.startsWith('../assets/')) {
+        return url.replace('../assets/', 'assets/');
+    }
+    
+    return url || DEFAULT_POSTER;
+}
+
+// 3. دالة عرض الأفلام الأكثر شهرة (Popular Movies)
+function renderPopularMovies(movies) {
+    const container = document.getElementById('popular-movies') || document.querySelector('.popular-movies-list');
+    if (!container) return;
+
+    if (!movies || movies.length === 0) {
+        container.innerHTML = '<p class="text-white text-center">لا توجد أفلام متاحة حالياً</p>';
+        return;
+    }
+
+    container.innerHTML = movies.map(movie => {
+        const poster = getPosterUrl(movie);
+        const title = movie.title || movie.name || 'بدون عنوان';
+        const rating = movie.rating || movie.vote_average || 'N/A';
+
+        return `
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <img 
+                        src="${poster}" 
+                        alt="${title}" 
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='${DEFAULT_POSTER}';"
+                    />
+                </div>
+                <div class="movie-info">
+                    <h3>${title}</h3>
+                    <span class="rating">⭐ ${rating}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// 4. دالة عرض أفلام قريباً (Coming Soon)
+function renderComingSoonSection(movies) {
+    const container = document.getElementById('coming-soon') || document.querySelector('.coming-soon-list');
+    if (!container) return;
+
+    if (!movies || movies.length === 0) {
+        container.innerHTML = '<p class="text-white text-center">لا توجد أفلام قادمة</p>';
+        return;
+    }
+
+    container.innerHTML = movies.map(movie => {
+        const poster = getPosterUrl(movie);
+        const title = movie.title || movie.name || 'بدون عنوان';
+
+        return `
+            <div class="coming-soon-card">
+                <img 
+                    src="${poster}" 
+                    alt="${title}" 
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='${DEFAULT_POSTER}';"
+                />
+                <h4>${title}</h4>
+            </div>
+        `;
+    }).join('');
+}
 </script>
 
 </body>
