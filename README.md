@@ -84,3 +84,4 @@ CineMasr was built collaboratively as a team project during the ITI backend trai
 * [Said Ahmed](https://github.com/said-ahmed12)
 * [Nour Ali](https://github.com/xxNOURxx501)
 * [Shahd Khaled](https://github.com/shahdkhaled13)
+* [Yara Mohammed](https://github.com/yaramooo)
