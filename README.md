@@ -10,7 +10,6 @@
 The platform provides a seamless booking experience, featuring movie catalog management, showtime scheduling, dynamic seat selection, and a secure RESTful backend architecture.
 
 ---
-
 ## 🚀 Key Features
 
 * **User Authentication & Management:** Secure registration, login, and session authorization for users and administrators.
@@ -21,7 +20,6 @@ The platform provides a seamless booking experience, featuring movie catalog man
 * **Responsive Frontend Flow:** Mobile-friendly user interface built using HTML5, modern JavaScript, and Bootstrap.
 
 ---
-
 ## 🛠 Tech Stack
 
 * **Runtime:** Node.js
@@ -31,7 +29,6 @@ The platform provides a seamless booking experience, featuring movie catalog man
 * **Versioning & Tools:** Git, Postman (API testing)
 
 ---
-
 ## ⚙️ Getting Started & Installation
 
 To run this project locally, follow these steps:
@@ -44,3 +41,46 @@ To run this project locally, follow these steps:
 ```bash
 git clone [https://github.com/karimmamdouh919/CineMasr.git](https://github.com/karimmamdouh919/CineMasr.git)
 cd CineMasr
+
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the root directory and configure your environment variables:
+
+```env
+PORT=3000
+MONGO_URI=your_mongodb_connection_string_here
+JWT_SECRET=your_jwt_secret_key_here
+
+```
+
+### 4. Run the Application
+
+```bash
+# Start in development mode (with nodemon)
+npm run dev
+
+# Or start in production mode
+npm start
+
+```
+
+The server will run on `http://localhost:3000`.
+
+---
+## 👥 Project Team
+
+CineMasr was built collaboratively as a team project during the ITI backend training program:
+
+* [Karim Mamdouh](https://github.com/karimmamdouh919)
+* [Said Ahmed](https://github.com/said-ahmed12)
+* [Nour Ali](https://github.com/xxNOURxx501)
+* [Shahd Khaled](https://github.com/shahdkhaled13)
